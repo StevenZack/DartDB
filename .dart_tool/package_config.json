@@ -1,0 +1,13 @@
+{
+  "configVersion": 2,
+  "packages": [
+    {
+      "name": "DartDB",
+      "rootUri": "../",
+      "packageUri": "lib/"
+    }
+  ],
+  "generated": "2020-10-18T11:53:36.569518Z",
+  "generator": "pub",
+  "generatorVersion": "2.11.0-161.0.dev"
+}
