@@ -2,12 +2,18 @@
   "configVersion": 2,
   "packages": [
     {
-      "name": "DartDB",
+      "name": "path",
+      "rootUri": "file:///home/asd/.pub-cache/hosted/pub.flutter-io.cn/path-1.7.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
+      "name": "dart_db",
       "rootUri": "../",
       "packageUri": "lib/"
     }
   ],
-  "generated": "2020-10-18T11:53:36.569518Z",
+  "generated": "2020-10-21T11:49:38.138425Z",
   "generator": "pub",
-  "generatorVersion": "2.11.0-161.0.dev"
+  "generatorVersion": "2.11.0-218.0.dev"
 }

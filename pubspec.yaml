@@ -1,1 +1,4 @@
-name: DartDB
+name: dart_db
+
+dependencies:
+  path: ^1.7.0
