@@ -18,7 +18,13 @@ class ObjectID {
     return ObjectID._fromTimestamp(DateTime.now());
   }
   factory ObjectID.fromTimestamp(DateTime dateTime) {
-    return null;
+    final s = dateTime.millisecondsSinceEpoch ~/ 1000;
+    final bytes = Uint8List(12);
+    bytes[0] = s >> 8 * 3;
+    bytes[1] = (s >> 8 * 2) % 256;
+    bytes[2] = (s >> 8) % 256;
+    bytes[3] = s % 256;
+    return ObjectID(bytes);
   }
   factory ObjectID._fromTimestamp(DateTime dateTime) {
     final s = dateTime.millisecondsSinceEpoch ~/ 1000;
@@ -37,7 +43,7 @@ class ObjectID {
     // pid 3
     bytes[7] = pid >> 8 & 256;
     bytes[8] = pid % 256;
-    
+
     // rand 3
     final counter = _random.nextInt(_trippleUint8);
     bytes[9] = (counter >> 8 * 2) % 256;
