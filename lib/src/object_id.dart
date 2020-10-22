@@ -14,8 +14,22 @@ class ObjectID {
     _data = data;
   }
 
+  // factory
   factory ObjectID.now() {
     return ObjectID._fromTimestamp(DateTime.now());
+  }
+  factory ObjectID.fromHex(String hex) {
+    if (hex.length != 24) {
+      throw Exception('invalid hex for ObjectID:$hex');
+    }
+    final data = Uint8List(12);
+    for (var i = 0; i < 12; i++) {
+      final s = hex.substring(i * 2, i * 2 + 2);
+      data[i] = int.parse(s, radix: 16, onError: (e) {
+        throw Exception('invalid hex for ObjectID:$hex');
+      });
+    }
+    return ObjectID(data);
   }
   factory ObjectID.fromTimestamp(DateTime dateTime) {
     final s = dateTime.millisecondsSinceEpoch ~/ 1000;
@@ -53,7 +67,26 @@ class ObjectID {
     return ObjectID(bytes);
   }
 
+  // methods
   Uint8List bytes() {
     return _data;
+  }
+  DateTime toTimestamp() {
+    var sec = _data[0] << 8 * 3;
+    sec += _data[1] << 8 * 2;
+    sec += _data[2] << 8;
+    sec += _data[3];
+    return DateTime.fromMillisecondsSinceEpoch(sec * 1000);
+  }
+  String hex() {
+    final buf = StringBuffer();
+    for (var i = 0; i < 12; i++) {
+      var s = _data[i].toRadixString(16);
+      if (s.length == 1) {
+        s = '0' + s;
+      }
+      buf.write(s);
+    }
+    return buf.toString();
   }
 }
