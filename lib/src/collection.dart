@@ -2,6 +2,7 @@ library dart_db;
 
 import 'dart:io';
 
+import 'package:dart_db/src/object_id.dart';
 class Collection {
   // static
   // vars
@@ -15,11 +16,11 @@ class Collection {
     }
   }
 
-  InsertResult insert(dynamic object){
+  InsertResult insert(dynamic object) {
     
   }
 }
 
 class InsertResult {
-
+  ObjectID insertedID;
 }
