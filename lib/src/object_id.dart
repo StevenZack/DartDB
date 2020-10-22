@@ -4,21 +4,22 @@ import 'dart:typed_data';
 import 'dart:io';
 import 'dart:math';
 
-class ObjectID {
+class ObjectId {
   static final _random = Random();
   static const _trippleUint8 = 256 * 256 * 256;
+  static final zero = ObjectId(Uint8List(12));
 
   Uint8List _data = Uint8List(12);
 
-  ObjectID(Uint8List data) {
+  ObjectId(Uint8List data) {
     _data = data;
   }
 
   // factory
-  factory ObjectID.now() {
-    return ObjectID._fromTimestamp(DateTime.now());
+  factory ObjectId.now() {
+    return ObjectId._fromTimestamp(DateTime.now());
   }
-  factory ObjectID.fromHex(String hex) {
+  factory ObjectId.fromHex(String hex) {
     if (hex.length != 24) {
       throw Exception('invalid hex for ObjectID:$hex');
     }
@@ -29,18 +30,21 @@ class ObjectID {
         throw Exception('invalid hex for ObjectID:$hex');
       });
     }
-    return ObjectID(data);
+    return ObjectId(data);
   }
-  factory ObjectID.fromTimestamp(DateTime dateTime) {
+  factory ObjectId.fromJson(String s) {
+    return ObjectId.fromHex(s);
+  }
+  factory ObjectId.fromTimestamp(DateTime dateTime) {
     final s = dateTime.millisecondsSinceEpoch ~/ 1000;
     final bytes = Uint8List(12);
     bytes[0] = s >> 8 * 3;
     bytes[1] = (s >> 8 * 2) % 256;
     bytes[2] = (s >> 8) % 256;
     bytes[3] = s % 256;
-    return ObjectID(bytes);
+    return ObjectId(bytes);
   }
-  factory ObjectID._fromTimestamp(DateTime dateTime) {
+  factory ObjectId._fromTimestamp(DateTime dateTime) {
     final s = dateTime.millisecondsSinceEpoch ~/ 1000;
     final bytes = Uint8List(12);
     bytes[0] = s >> 8 * 3;
@@ -64,13 +68,14 @@ class ObjectID {
     bytes[10] = (counter >> 8) % 256;
     bytes[11] = counter % 256;
 
-    return ObjectID(bytes);
+    return ObjectId(bytes);
   }
 
   // methods
   Uint8List bytes() {
     return _data;
   }
+
   DateTime toTimestamp() {
     var sec = _data[0] << 8 * 3;
     sec += _data[1] << 8 * 2;
@@ -78,6 +83,7 @@ class ObjectID {
     sec += _data[3];
     return DateTime.fromMillisecondsSinceEpoch(sec * 1000);
   }
+
   String hex() {
     final buf = StringBuffer();
     for (var i = 0; i < 12; i++) {
@@ -88,5 +94,9 @@ class ObjectID {
       buf.write(s);
     }
     return buf.toString();
+  }
+
+  String toJson() {
+    return hex();
   }
 }

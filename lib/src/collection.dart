@@ -22,5 +22,5 @@ class Collection {
 }
 
 class InsertResult {
-  ObjectID insertedID;
+  ObjectId insertedID;
 }
