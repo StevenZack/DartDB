@@ -1,5 +1,6 @@
 library dart_db;
 
+import 'dart:mirrors';
 import 'dart:typed_data';
 import 'dart:io';
 import 'dart:math';
@@ -8,6 +9,7 @@ class ObjectId {
   static final _random = Random();
   static const _trippleUint8 = 256 * 256 * 256;
   static final zero = ObjectId(Uint8List(12));
+  static final symbol = MirrorSystem.getSymbol('dart_db.ObjectId');
 
   Uint8List _data = Uint8List(12);
 
