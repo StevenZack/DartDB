@@ -66,9 +66,4 @@ class Document {
   String marshal() {
     return jsonEncode(this);
   }
-
-  factory Document.unmarshal(String s) {
-    Map<String, dynamic> d = jsonDecode(s);
-    return Document.fromJson(d);
-  }
 }

@@ -9,8 +9,12 @@ class Student {
   Student(this.name, this.age);
 }
 
+class Dog {
+  ObjectId id;
+}
+
 main(List<String> args) {
-  final col = Collection('./user');
-  final r = col.insert(Student('asd2', 17));
-  print(r.insertedID.hex());
+  final col = Collection('./user', Dog);
+  final doc = col.find("5f93e30748facb005b93505c");
+  print(doc.marshal());
 }
